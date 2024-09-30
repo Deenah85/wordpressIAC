@@ -34,12 +34,12 @@ Vagrant.configure("2") do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
- config.vm.network "private_network", ip: "192.168.56.29"
+ config.vm.network "private_network", ip: "192.168.56.29" # this allows you to choose a static IP, make sure it doesn't conflict with any other IP on the system
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
-  config.vm.network "public_network"
+  config.vm.network "public_network" #this option allows your VM to grab an ip froma router
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -63,7 +63,7 @@ Vagrant.configure("2") do |config|
   #   vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
-   vb.memory = "1600"
+   vb.memory = "1600" #choose RAM memory based on system and requirements
    end
   #
   # View the documentation for the provider you are using for more
@@ -91,7 +91,7 @@ Vagrant.configure("2") do |config|
     sudo mkdir -p /srv/www
     sudo chown www-data: /srv/www
     curl https://wordpress.org/latest.tar.gz | sudo -u www-data tar zx -C /srv/www
-    cat > /etc/apache2/sites-available/wordpress.conf <<EOF
+    cat > /etc/apache2/sites-available/wordpress.conf <<EOF # to include text to be added to a specific file we add the text between EOF and make sure there's no space before the beginning and the end of the EOF
 <VirtualHost *:80>
       DocumentRoot /srv/www/wordpress
       <Directory /srv/www/wordpress>
@@ -111,8 +111,8 @@ EOF
     sudo a2enmod rewrite
     sudo a2dissite 000-default
     sudo service apache2 reload
-    mysql -u root -e 'CREATE DATABASE wordpress;'
-    mysql -u root -e 'CREATE USER wordpress@localhost IDENTIFIED BY "P@ssw0rd";'
+    mysql -u root -e 'CREATE DATABASE wordpress;' #-u is to define the user as the root user, and the -e is used to run the command directly from command line without accessing the mysql interactive interface
+    mysql -u root -e 'CREATE USER wordpress@localhost IDENTIFIED BY "Password";' #replace password with actual password you're going to use.
     mysql -u root -e 'GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER ON wordpress.* TO wordpress@localhost;'
     mysql -u root -e 'FLUSH PRIVILEGES;'
     
