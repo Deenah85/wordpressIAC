@@ -3,7 +3,7 @@ open Git bash
 use command vagrant init "ubuntu/focal6"
 
 Open IDE to edit vagrant file
-modify network as preferred (check vagrant file in this repo)
+modify network as preferred and add provisioning commands (check vagrant file in this repo)
 
 The steps are:
 
